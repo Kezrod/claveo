@@ -1,0 +1,114 @@
+---
+---
+
+<!-- 🧭 Header -->
+<header class="w-full flex items-center justify-between px-8 py-4 bg-bg text-text">
+  <div class="flex items-center gap-8">
+    <a href="/" class="text-white font-semibold hover:text-accent transition">Home</a>
+    <a href="/src/pages/Planes.astro" class="text-white font-semibold hover:text-accent transition">Planes</a>
+  </div>
+  <div>
+    <a href="/login" class="bg-accent hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-white text-sm">
+      Iniciar sesión
+    </a>
+  </div>
+</header>
+
+<!-- 📦 Contenedor de Planes -->
+<div class="flex flex-col items-center pt-16 px-6 bg-bg text-text min-h-screen">
+  <h1 class="text-4xl font-extrabold mb-12">Elige el plan perfecto para ti</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+    <!-- 🆓 Plan Free -->
+    <div class="plan-card cursor-pointer bg-white text-black p-8 rounded-xl shadow-xl border-4 border-transparent hover:border-accent transition" data-plan="free">
+      <h2 class="text-2xl font-bold mb-4">Free</h2>
+      <p class="text-gray-600 mb-6">Hasta 10 intentos mensuales</p>
+      <ul class="list-disc list-inside text-gray-700 mb-6">
+        <li>Acceso gratuito</li>
+        <li>Soporte básico</li>
+      </ul>
+      <div class="text-center">
+        <button class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-2 rounded-lg transition">Ver detalles</button>
+      </div>
+    </div>
+
+    <!-- 🚀 Plan Pro -->
+    <div class="plan-card cursor-pointer bg-white text-black p-8 rounded-xl shadow-xl border-4 border-transparent hover:border-accent transition" data-plan="pro">
+      <h2 class="text-2xl font-bold mb-4">Pro</h2>
+      <p class="text-gray-600 mb-6">Uso ilimitado</p>
+      <ul class="list-disc list-inside text-gray-700 mb-6">
+        <li>Acceso ilimitado</li>
+        <li>Prioridad en soporte</li>
+        <li>Actualizaciones automáticas</li>
+      </ul>
+      <div class="text-center">
+        <button class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-2 rounded-lg transition">Ver detalles</button>
+      </div>
+    </div>
+
+    <!-- 🏆 Plan Pro XL -->
+    <div class="plan-card cursor-pointer bg-white text-black p-8 rounded-xl shadow-xl border-4 border-transparent hover:border-accent transition" data-plan="proxl">
+      <h2 class="text-2xl font-bold mb-4">Pro XL</h2>
+      <p class="text-gray-600 mb-6">Ilimitado + Exportar archivos</p>
+      <ul class="list-disc list-inside text-gray-700 mb-6">
+        <li>Todo lo del Pro</li>
+        <li>Exportación de documentos</li>
+        <li>Soporte 24/7</li>
+      </ul>
+      <div class="text-center">
+        <button class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-2 rounded-lg transition">Ver detalles</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 📦 Modal -->
+<div id="planModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-white text-black rounded-xl shadow-2xl p-10 max-w-lg w-[90%] relative">
+    <button id="closeModal" class="absolute top-4 right-4 text-black hover:text-red-500 text-2xl">&times;</button>
+    <h2 id="modalTitle" class="text-3xl font-extrabold mb-4"></h2>
+    <p id="modalDesc" class="text-gray-700 mb-6"></p>
+    <ul id="modalList" class="list-disc list-inside text-gray-800 space-y-2"></ul>
+  </div>
+</div>
+
+<script is:inline>
+  const cards = document.querySelectorAll(".plan-card");
+  const modal = document.getElementById("planModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalList = document.getElementById("modalList");
+  const closeModal = document.getElementById("closeModal");
+
+  const planInfo = {
+    free: {
+      title: "Plan Free",
+      desc: "Ideal para quienes están empezando y solo necesitan un número limitado de consultas.",
+      list: ["10 intentos mensuales", "Soporte básico", "Acceso gratuito"],
+    },
+    pro: {
+      title: "Plan Pro",
+      desc: "Perfecto para usuarios frecuentes que necesitan uso ilimitado.",
+      list: ["Acceso ilimitado", "Prioridad en soporte", "Actualizaciones automáticas"],
+    },
+    proxl: {
+      title: "Plan Pro XL",
+      desc: "La opción definitiva con exportación de archivos y soporte premium.",
+      list: ["Todo lo del Pro", "Exportación de documentos", "Soporte 24/7"],
+    },
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const plan = card.dataset.plan;
+      const data = planInfo[plan];
+      modalTitle.textContent = data.title;
+      modalDesc.textContent = data.desc;
+      modalList.innerHTML = data.list.map(item => `<li>${item}</li>`).join("");
+      modal.classList.remove("hidden");
+    });
+  });
+
+  closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+  modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.add("hidden"); });
+</script>
