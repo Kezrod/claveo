@@ -17,7 +17,7 @@
 
 ## 📸 Vista previa
 
-> _(Agrega aquí una captura de pantalla de tu app funcionando)_  
+
 ![Preview](./docs/preview.png)
 
 ---
