@@ -1,11 +1,21 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import ClaveSATSearch from '../components/ClaveSATSearch.astro';
+import '../styles/styles.css';
 
+const mydata = [{
+	label: 'Tornillo cabeza hexagonal', meta: 'Ferretería', score: 97, ps_clave: '31161504', unidad: 'H87', url: '/buscar?q=tornillo%20cabeza%20hexagonal' 
+}]
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<ClaveSATSearch
+		title="Claveo-MX"
+		subtitle="Buscador de claves del SAT"
+		actionUrl="/buscar"
+		suggestions={mydata}
+	/>
 </Layout>
