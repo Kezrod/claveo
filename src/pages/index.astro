@@ -2,7 +2,9 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import ClaveSATSearch from '../components/ClaveSATSearch.astro';
+import '../components/Chat'
 import '../styles/styles.css';
+import Chat from '../components/Chat';
 
 const mydata = [{
 	label: 'Tornillo cabeza hexagonal', meta: 'Ferretería', score: 97, ps_clave: '31161504', unidad: 'H87', url: '/buscar?q=tornillo%20cabeza%20hexagonal' 
@@ -18,4 +20,5 @@ const mydata = [{
 		actionUrl="/buscar"
 		suggestions={mydata}
 	/>
+
 </Layout>

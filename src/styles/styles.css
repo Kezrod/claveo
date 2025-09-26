@@ -2,8 +2,8 @@
 
 @theme{
     --default-font-family: 'Helvetica', sans-serif;
-    --color-bg: #0b0b0b;        /* Fondo principal */
-    --color-text: #ffffff;      /* Texto */
+    --color-bg: #fff;        /* Fondo principal */
+    --color-text: #0b0b0b;      /* Texto */
     --color-text-muted: #9ca3af;/* Texto gris */
     --color-border: #2a2a2a;    /* Bordes */
     --color-accent: #2563eb;    /* Azul */
