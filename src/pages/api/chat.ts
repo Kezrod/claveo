@@ -1,6 +1,12 @@
     import type { APIRoute } from "astro";
     import OpenAI from "openai";
 
+    import fs from "fs";
+    import path from "path";
+
+    const csvPath = path.join(process.cwd(), "src", "data", "claves.csv");
+    const csvData = fs.readFileSync(csvPath, "utf-8");
+
     const client = new OpenAI({
     apiKey: import.meta.env.OPENAI_API_KEY, // asegúrate de tenerlo en .env
     });

@@ -6,6 +6,7 @@ const examples = [
   "jabón antibacterial 135 g",
   "impresión en papel fotográfico",
 ];
+import Chat from "./Chat";
 ---
 
 <!-- 🧭 Header con botón -->
@@ -49,6 +50,9 @@ const examples = [
       Buscar
     </button>
   </form>
+    <div class="mt-6">
+      <slot />
+    </div>
 </div>
 
 <script is:inline>
