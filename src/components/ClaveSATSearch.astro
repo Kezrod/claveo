@@ -10,16 +10,6 @@ import Chat from "./Chat";
 ---
 
 <!-- 🧭 Header con botón -->
-<header class="w-full flex items-center justify-end px-8 py-4 bg-bg text-text">
-  <div class="flex items-center gap-8">
-    <a href="/" class="text-white font-semibold hover:text-accent transition">Home</a>
-    <a href="/planes" class="text-white font-semibold hover:text-accent transition">Planes</a>
-    <a href="/login" class="bg-accent hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-white text-sm">
-      Iniciar sesión
-    </a>
-  </div>
-</header>
-
 
 
 <!-- 📦 Contenido original -->
@@ -38,15 +28,15 @@ import Chat from "./Chat";
       </svg>
     </span>
 
-        <input 
-        id="searchInput"
-        type="search" 
-        class="bg-transparent w-80 md:w-96 outline-none placeholder-muted text-base"
-        placeholder="Buscar clave SAT"
-        data-examples={JSON.stringify(examples)}
-        />
+    <input 
+      id="searchInput"
+      type="search" 
+      class="bg-transparent w-80 md:w-96 outline-none placeholder-muted text-base"
+      placeholder="Buscar clave SAT"
+      data-examples={JSON.stringify(examples)}
+    />
 
-    <button type="submit" class="bg-accent hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-sm">
+    <button type="submit" class="bg-accent hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-sm text-white">
       Buscar
     </button>
   </form>
