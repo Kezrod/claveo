@@ -1,4 +1,7 @@
+export const prerender = false;
 import type { APIRoute } from "astro";
+
+
 import { connectDB } from "../../../lib/db";
 import { User } from "../../../lib/User";
 
