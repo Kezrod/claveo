@@ -1,0 +1,34 @@
+---
+    import "../styles/styles.css";
+
+    const currentPath = Astro.url.pathname;
+
+    const links = [
+        { href: "/", label: "Home" },
+        { href: "/planes", label: "Planes" },
+        { href: "/perfil", label: "Perfil" },
+        
+    ];
+---
+
+<header class="w-full flex items-center justify-end px-8 py-2 bg-navbar text-text">
+    <nav class="flex items-center gap-8" aria-label="Menú principal">
+        {links.map(({ href, label }) => (
+        <a
+            href={href}
+            class={`font-semibold hover:text-accent transition ${
+            currentPath === href ? "underline underline-offset-4" : ""
+            }`}
+        >
+            {label}
+        </a>
+        ))}
+
+        <a 
+        href="/login" 
+        class="bg-[#2563eb] hover:bg-blue-500 transition px-4 py-2 rounded-lg font-semibold text-white text-sm"
+        >
+        Iniciar sesión
+        </a>
+    </nav>
+</header>
