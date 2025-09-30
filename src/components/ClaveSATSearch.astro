@@ -1,4 +1,5 @@
 ---
+import Header from "./Header.astro";
 const examples = [
   "envases de plástico 250 ml",
   "tornillería de acero",
@@ -9,15 +10,7 @@ const examples = [
 ---
 
 <!-- 🧭 Header con botón -->
-<header class="w-full flex items-center justify-end px-8 py-4 bg-bg text-text">
-  <div class="flex items-center gap-8">
-    <a href="/" class="text-white font-semibold hover:text-accent transition">Home</a>
-    <a href="/planes" class="text-white font-semibold hover:text-accent transition">Planes</a>
-    <a href="/login" class="bg-accent hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-white text-sm">
-      Iniciar sesión
-    </a>
-  </div>
-</header>
+
 
 <!-- 📦 Contenido original -->
 <div class="min-h-screen flex flex-col items-center justify-center bg-bg text-text">

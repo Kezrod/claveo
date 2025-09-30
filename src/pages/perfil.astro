@@ -1,0 +1,24 @@
+---
+    import Layout from "../layouts/Layout.astro";
+    import Profile from "../components/Profile.astro";
+    import '../styles/styles.css';
+
+// Simulación: en producción obtén el usuario de la sesión (ej. desde JWT o cookie)
+    const user = {
+    name: "Pablo Rodriguez",
+    email: "pablo@example.com",
+    avatar: ""
+    };
+        
+    const history = [
+        { query: "envases de plástico 250 ml", date: "2025-09-20", details: "Código SAT: 123456 • Categoría: Envases • Unidad: Litro" },
+        { query: "tornillería de acero", date: "2025-09-18", details: "Código SAT: 654321 • Categoría: Herramientas • Unidad: Pieza" },
+        { query: "jabón antibacterial 135 g", date: "2025-09-15", details: "Código SAT: 987654 • Categoría: Higiene • Unidad: Gramos" },
+        { query: "impresión en papel fotográfico", date: "2025-09-12", details: "Código SAT: 321987 • Categoría: Impresiones • Unidad: Servicio" },
+    ];
+---
+
+    <Layout>
+            <Profile user={user} history={history} />
+
+    </Layout>

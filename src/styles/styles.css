@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 @theme{
-    --default-font-family: 'Helvetica', sans-serif;
+    --default-font-family: 'Helvetica Vue', sans-serif;
     --color-bg: #fff;        /* Fondo principal */
     --color-text: #0b0b0b;      /* Texto */
     --color-text-muted: #9ca3af;/* Texto gris */
     --color-border: #2a2a2a;    /* Bordes */
     --color-accent: #2563eb;    /* Azul */
     --color-accent-hover: #1d4ed8;
+    --color-navbar: #DCDCDC;
 }

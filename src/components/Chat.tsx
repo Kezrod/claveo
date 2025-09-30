@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Chat() {
     const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
     const [input, setInput] = useState("");
-
+/*
     const sendMessage = async () => {
         if (!input.trim()) return;
 
@@ -28,7 +28,10 @@ export default function Chat() {
 
         setInput("");
     };
-
+*/
+    const sendMessage = async () => {
+        if (!input.trim()) return;
+    }
     return (
         <div className="w-full max-w-2xl mx-auto p-4 border rounded-lg shadow">
         <div className="h-64 overflow-y-auto bg-gray-50 p-2 mb-4 rounded">

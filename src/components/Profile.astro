@@ -1,0 +1,122 @@
+---
+    interface User {
+        name: string;
+        email: string;
+        avatar?: string;
+    }
+
+    interface SearchItem {
+        query: string;
+        date: string;
+        details: string;
+    }
+
+    const { user, history } = Astro.props as { user: User; history: SearchItem[] };
+---
+
+<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 space-y-6">
+
+    <!-- 📌 Info del Usuario -->
+    <div class="flex items-center gap-4">
+        <img 
+        src={user.avatar || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.name)} 
+        alt="avatar"
+        class="w-16 h-16 rounded-full border border-gray-300 dark:border-gray-700"
+        />
+        <div>
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white">{user.name}</h2>
+        <p class="text-gray-600 dark:text-gray-300">{user.email}</p>
+        </div>
+    </div>
+
+    <!-- 📌 Historial -->
+    <div>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Historial de búsqueda</h3>
+        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 max-h-64 overflow-y-auto">
+        {history.length > 0 ? (
+            <ul class="space-y-2">
+            {history.map((item, i) => (
+                <li
+                class="flex justify-between items-center border-b border-gray-200 dark:border-gray-600 pb-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 rounded px-2"
+                data-query={item.query}
+                data-date={item.date}
+                data-details={item.details}
+                >
+                <span class="text-gray-800 dark:text-gray-200">{item.query}</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">{item.date}</span>
+                </li>
+            ))}
+            </ul>
+        ) : (
+            <p class="text-gray-500 dark:text-gray-400 italic">No hay búsquedas aún</p>
+        )}
+        </div>
+    </div>
+
+    <!-- 📌 Logout -->
+    <div class="flex justify-end">
+        <form method="post" action="/logout">
+        <button
+            type="submit"
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition"
+        >
+            Cerrar sesión
+        </button>
+        </form>
+    </div>
+    </div>
+
+    <!-- 📌 Modal (oculto al inicio) -->
+    <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6">
+        <h4 id="modal-query" class="text-lg font-bold text-gray-900 dark:text-white mb-2"></h4>
+        <p id="modal-date" class="text-sm text-gray-600 dark:text-gray-300 mb-4"></p>
+        <p id="modal-details" class="text-gray-700 dark:text-gray-200"></p>
+
+        <div class="mt-6 flex justify-end">
+        <button
+            id="modal-close"
+            class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition"
+        >
+            Cerrar
+        </button>
+        </div>
+    </div>
+</div>
+<script>
+    const items = document.querySelectorAll("li[data-query]") as NodeListOf<HTMLElement>;
+    const modal = document.getElementById("modal") as HTMLDivElement | null;
+    const modalQuery = document.getElementById("modal-query") as HTMLHeadingElement | null;
+    const modalDate = document.getElementById("modal-date") as HTMLParagraphElement | null;
+    const modalDetails = document.getElementById("modal-details") as HTMLParagraphElement | null;
+    const modalClose = document.getElementById("modal-close") as HTMLButtonElement | null;
+
+    items.forEach((el) => {
+        el.addEventListener("click", () => {
+        if (!modal || !modalQuery || !modalDate || !modalDetails) return;
+
+        modalQuery.textContent = el.dataset.query || "";
+        modalDate.textContent = "Fecha: " + (el.dataset.date || "");
+        modalDetails.textContent = el.dataset.details || "";
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        });
+    });
+
+    if (modalClose && modal) {
+        modalClose.addEventListener("click", () => {
+        modal.classList.remove("flex");
+        modal.classList.add("hidden");
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("flex");
+            modal.classList.add("hidden");
+        }
+        });
+    }
+</script>
