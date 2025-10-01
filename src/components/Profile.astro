@@ -3,6 +3,9 @@
         name: string;
         email: string;
         avatar?: string;
+        plan: "free" | "tier1" | "tier2";
+        searchesUsed?: number; // solo si plan es "free"
+
     }
 
     interface SearchItem {
@@ -18,15 +21,42 @@
 
     <!-- 📌 Info del Usuario -->
     <div class="flex items-center gap-4">
-        <img 
+    <img 
         src={user.avatar || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.name)} 
         alt="avatar"
         class="w-16 h-16 rounded-full border border-gray-300 dark:border-gray-700"
-        />
-        <div>
+    />
+    <div>
         <h2 class="text-xl font-bold text-gray-900 dark:text-white">{user.name}</h2>
         <p class="text-gray-600 dark:text-gray-300">{user.email}</p>
-        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        Plan: {user.plan === "free" ? "Gratis" : user.plan === "tier1" ? "Tier 1" : "Tier 2"}
+        </p>
+
+        {user.plan === "free" && (
+        <p class="text-sm text-red-500">
+            Búsquedas usadas: {user.searchesUsed} / 10
+        </p>
+        )}
+    </div>
+    </div>
+    <!-- 📌 Acciones según plan -->
+    <div class="mt-4 space-y-2">
+    {user.plan === "free" && (
+        <p class="text-gray-500 text-sm">Actualiza tu plan para búsquedas ilimitadas y más funciones 🚀</p>
+    )}
+
+    {(user.plan === "tier1" || user.plan === "tier2") && (
+        <button class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition">
+        Subir CSV
+        </button>
+    )}
+
+    {user.plan === "tier2" && (
+        <button class="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition">
+        Exportar a PDF/CSV
+        </button>
+    )}
     </div>
 
     <!-- 📌 Historial -->
