@@ -2,6 +2,8 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+import dotenv from "dotenv";
+dotenv.config();
 import node from "@astrojs/node"; // 👈 Adapter para poder hacer build con /api
 
 import netlify from "@astrojs/netlify";
