@@ -4,13 +4,13 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import dotenv from "dotenv";
 dotenv.config();
-import node from "@astrojs/node"; // 👈 Adapter para poder hacer build con /api
-
-import netlify from "@astrojs/netlify";
+import netlify from "@astrojs/netlify"; // ✅ Adapter correcto para backend en Netlify
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind()],
-  output: "static", // 👈 Necesario si usas /api o MongoDB
-  adapter: netlify(), // 👈 Importante para deploy
+  output: "server", // ✅ Necesario para que /api y MongoDB funcionen
+  adapter: netlify({
+    edge: false, // 👈 importante: usa Node.js en lugar de funciones edge
+  }),
 });

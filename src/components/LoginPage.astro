@@ -4,10 +4,11 @@
 
 <header class="bg-[var(--color-navbar)] w-full flex items-center justify-end px-8 py-2 text-text">
   <a 
-    href="/" 
+    id="authButton"
+    href="/login" 
     class="bg-[var(--color-accent)] hover:bg-accent-hover transition px-4 py-2 rounded-lg font-semibold text-white text-sm"
   >
-    Volver al inicio
+    Iniciar sesión
   </a>
 </header>
 
@@ -20,7 +21,7 @@
       <h1 class="text-3xl font-extrabold text-center mb-6">Bienvenido a Claveo</h1>
       <p class="text-center text-sm text-gray-600 mb-8">Inicia sesión para continuar</p>
 
-      <form class="flex flex-col gap-5">
+      <form class="flex flex-col gap-5" id="loginFormSubmit">
         <div>
           <label for="email" class="block text-sm font-semibold mb-2 text-black">Correo electrónico</label>
           <input
@@ -105,7 +106,7 @@
   </div>
 </div>
 
-<!-- 📜 Script para alternar formularios y crear usuario -->
+<!-- 📜 Script para alternar formularios, crear usuario e iniciar sesión -->
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
@@ -115,19 +116,18 @@
     const registerForm = document.getElementById("registerForm");
     const msg = document.getElementById("msg");
 
-    // 🟣 Mostrar formulario de registro
+    // 🟣 Alternar formularios
     showRegisterBtn?.addEventListener("click", () => {
       loginForm.classList.add("hidden");
       registerContainer.classList.remove("hidden");
     });
 
-    // 🔙 Volver al login
     showLoginBtn?.addEventListener("click", () => {
       registerContainer.classList.add("hidden");
       loginForm.classList.remove("hidden");
     });
 
-    // 🛠️ Crear usuario con validación de contraseña
+    // 🛠️ Crear usuario
     registerForm?.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -149,12 +149,11 @@
       };
 
       try {
-      const res = await fetch("/api/register", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data),
-});
-
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
 
         const result = await res.json();
 
@@ -176,5 +175,49 @@
         msg.className = "text-red-500 text-center";
       }
     });
+
+    // ✅ Iniciar sesión
+    const loginFormSubmit = document.getElementById("loginFormSubmit");
+    loginFormSubmit.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          // ✅ Guardar sesión
+          localStorage.setItem("user", JSON.stringify(result.user));
+
+          // ✅ Redirigir al index
+          window.location.href = "/";
+        } else {
+          alert("❌ " + result.error);
+        }
+      } catch (err) {
+        alert("❌ Error al conectar con el servidor.");
+      }
+    });
+
+    // 🔁 Cambiar botón a "Cerrar sesión" si hay sesión activa
+    const authButton = document.getElementById("authButton");
+    const user = localStorage.getItem("user");
+
+    if (user) {
+      authButton.textContent = "Cerrar sesión";
+      authButton.href = "#";
+      authButton.addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "/";
+      });
+    }
   });
 </script>

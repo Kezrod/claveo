@@ -1,4 +1,5 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import mongoosePkg from "mongoose";
+const { Schema, model, models } = mongoosePkg;
 
 const UserSchema = new Schema(
   {
